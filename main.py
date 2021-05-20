@@ -1,6 +1,5 @@
-from Tkinter import *
+from tkinter import *
+window = Tk()
 
-class main_screen:
-    def __init__(self, parent):
-        background_color = "black"
-        
+window.title('Quiz on Global pollution')
+window.geometry("500x600+10+20")
