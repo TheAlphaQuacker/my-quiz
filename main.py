@@ -1,6 +1,6 @@
 from tkinter import *
 
-class main_screen:
+class MainScreen:
     def __init__ (self, master):
         self.master = master
         master.title("Quiz on Global Pollution")
@@ -11,13 +11,41 @@ class main_screen:
         self.quiz_frame.grid()
 
         self.heading_label = Label(self.quiz_frame, text = "Global Pollution", font=("Tw Cen MT", "20"),bg = background_color, fg = 'cyan', padx = 20, pady = 20)
-        self.heading_label.grid(row = 1, padx = 10)
+        self.heading_label.grid(row = 1, padx = 20, pady = 20)
 
         self.entry_box = Entry(self.quiz_frame)
         self.entry_box.grid(row=2, padx=20, pady=20)
 
-        self.start_button = Button(self.quiz_frame, text="Start", font=("Helvetica", "13", "bold"), bg=background_color)
+        #start button
+        self.start_button = Button(self.quiz_frame, text="Start", font=("Helvetica", "13", "bold"),fg='cyan', bg=background_color, command=self.name_collection)
+        self.start_button.grid(row=3, padx=20, pady=20)
+        
+        #Leaderboard
+        self.Leaderboard_Button = Button(self.quiz_frame, text="LeaderBoard", font=("Helvetica", "13", "bold"),fg='cyan', bg=background_color, command=self.name_collection)
+        self.Leaderboard_Button.grid(row=4, padx=20, pady=20) 
 
+        #Quit Button
+        self.Quit_Button = Button(self.quiz_frame, text="Quit", font=("Helvetica", "13", "bold"),fg='cyan', bg=background_color, command=)
+        self.Quit_Button.grid(row=5, padx=20, pady=20) 
+        
+
+
+    def name_collection(self):
+        name = self.entry_box.get()
+        names_list.append (name)
+        self.quiz_frame.destroy()
+        Quiz(root)
+
+class Quiz:
+    def __init__ (self,master):
+        self.master = master
+        master.title("Quiz on Global Pollution")
+
+        background_color = "black"
+
+        self.quizframe = Frame(master, bg=background_color)
+    
 root = Tk()
-mainscreen = main_screen(root)
+root.title("Quiz on Global Pollution")
+mainscreen = MainScreen(root)
 root.mainloop()
