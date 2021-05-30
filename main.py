@@ -1,4 +1,11 @@
 from tkinter import *
+import random
+global question_answer
+names_list = []
+asked = []
+score = 0
+
+question_answers = {}
 
 class MainScreen:
     def __init__ (self, master):
@@ -24,12 +31,6 @@ class MainScreen:
         self.Leaderboard_Button = Button(self.quiz_frame, text="LeaderBoard", font=("Helvetica", "13", "bold"),fg='cyan', bg=background_color, command=self.name_collection)
         self.Leaderboard_Button.grid(row=4, padx=20, pady=20) 
 
-        #Quit Button
-        self.Quit_Button = Button(self.quiz_frame, text="Quit", font=("Helvetica", "13", "bold"),fg='cyan', bg=background_color, command=)
-        self.Quit_Button.grid(row=5, padx=20, pady=20) 
-        
-
-
     def name_collection(self):
         name = self.entry_box.get()
         names_list.append (name)
@@ -43,7 +44,9 @@ class Quiz:
 
         background_color = "black"
 
-        self.quizframe = Frame(master, bg=background_color)
+        self.quiz_frame = Frame(master, bg=background_color, padx=100, pady=100)
+        self.quiz_frame.grid()
+
     
 root = Tk()
 root.title("Quiz on Global Pollution")
