@@ -7,11 +7,37 @@ asked = []
 score = 0
 
 question_answer = {
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: [],
+    1: [
+        "What is Pollution?",
+        'The release of anything that is harmful to the environment',
+        'playing too much games', 'eating too much sweets',
+        'throwing garbage on the ground', 'killing animals',
+        'The release of anything that is harmful to the environment', 1
+    ],
+    2: [
+        "How does pollution affect the environment?",
+        'long term exposure to air pollution can lead to chronic diseases',
+        'it kill plants and animal life',
+        'it causes the soil to turn infertile',
+        'pollution can cause harmful weather like smog', 'all of them',
+        'all of them', 5
+    ],
+    3: [
+        "Which country creates the most pollution?", 'Brazil', 'China',
+        'United States of America', 'Germany', 'Russia', 'China', 2
+    ],
+    4: [
+        "Which country creates the least pollution?", 'New Zealand', 'Finland',
+        'France', 'Sweden', 'Australia', 'Sweden', 4
+    ],
+    5: [
+        "What are greenhouse gases?", 'gases that make the earth colder',
+        'gases that are poisnous',
+        'gases that create a greenhouse effect by trapping the heat inside the earths atmosphere',
+        'gases inside a greenhouse', 'gases that make your house green',
+        'gases that create a greenhouse effect by trapping the heat inside the earths atmosphere',
+        3
+    ],
     6: [],
     7: [],
     8: [],
@@ -113,65 +139,132 @@ class Quiz:
                                font=("Helvetica", "12"),
                                bg="cyan",
                                value=1,
-                               padx=10
+                               padx=10,
                                pady=10,
                                variable=self.var1,
                                indicator=0,
-                               background = "cyan"
+                               background="cyan",
                                fg="black")
-        self.rb1.grid(row=2,sticky=W)
+        self.rb1.grid(row=2, sticky=W)
 
         self.rb2 = Radiobutton(self.quiz_frame,
                                text=question_answer[qnum][2],
                                font=("Helvetica", "12"),
                                bg="cyan",
                                value=2,
-                               padx=10
+                               padx=10,
                                pady=10,
                                variable=self.var1,
                                indicator=0,
-                               background = "cyan"
+                               background="cyan",
                                fg="black")
-        self.rb2.grid(roow=3, sticky=W)
+        self.rb2.grid(row=3, sticky=W)
 
         self.rb3 = Radiobutton(self.quiz_frame,
                                text=question_answer[qnum][3],
                                font=("Helvetica", "12"),
                                bg="cyan",
-                               value=2,
-                               padx=10
+                               value=3,
+                               padx=10,
                                pady=10,
                                variable=self.var1,
                                indicator=0,
-                               background = "cyan"
+                               background="cyan",
                                fg="black")
-        self.rb3.grid(roow=4, sticky=W)
+        self.rb3.grid(row=4, sticky=W)
 
         self.rb4 = Radiobutton(self.quiz_frame,
                                text=question_answer[qnum][4],
                                font=("Helvetica", "12"),
                                bg="cyan",
-                               value=2,
-                               padx=10
+                               value=4,
+                               padx=10,
                                pady=10,
                                variable=self.var1,
                                indicator=0,
-                               background = "cyan"
+                               background="cyan",
                                fg="black")
-        self.rb4.grid(roow=5, sticky=W)
+        self.rb4.grid(row=5, sticky=W)
 
         self.rb5 = Radiobutton(self.quiz_frame,
                                text=question_answer[qnum][5],
                                font=("Helvetica", "12"),
                                bg="cyan",
-                               value=2,
-                               padx=10
+                               value=5,
+                               padx=10,
                                pady=10,
                                variable=self.var1,
                                indicator=0,
-                               background = "cyan"
+                               background="cyan",
                                fg="black")
-        self.rb5.grid(roow=6, sticky=W)
+        self.rb5.grid(row=6, sticky=W)
+
+        self.quiz_instance = Button(self.quiz_frame,
+                                    text="Confirm",
+                                    font=("Helvetica", "13", "bold"),
+                                    bg="cyan",
+                                    command=self.test_progress)
+
+        self.quiz_instance.grid(row=7, padx=5, pady=5)
+
+        self.score_label=Label(self.quiz_frame, text="SCORE", font=("Tw Cen MT","16"), bg=background_color)
+        self.score_label.grid(row=8, padx=10, pady=1)
+
+    def question_setup(self):
+        randomiser()
+        self.var1.set(0)
+        self.question_label.config(text=question_answer[qnum][0])
+        self.rb1.config(text=question_answer[qnum][1])
+        self.rb2.config(text=question_answer[qnum][2])
+        self.rb3.config(text=question_answer[qnum][3])
+        self.rb4.config(text=question_answer[qnum][4])
+        self.rb5.config(text=question_answer[qnum][5])
+
+    def test_progress(self):
+        global score
+        scr_label=self.score_label
+        choice=self.var1.get()
+        if len(asked)>9:
+            if choice ==question_answer[qnum][6]:
+                score+=1
+                scr_label.config(text=score)
+                self.quiz_instance.config(text="Confirm")
+
+            else:
+                score+=0
+                scr_label.config(text="The correct answer was: " + question_answer[qnum][5] )
+                self.quiz_instance.config(text="Confirm")
+
+        else:
+            if choice ==0:
+                self.quiz_instance.config(text="Try Again, You didn't select an option then submit again")
+                choice=self.var1.get()
+            else:
+                if choice == question_answer[qnum][6]:
+                    score+=1
+                    scr_label.config(text=score)
+                    self.quiz_instance.config(text="Confirm")
+                else:
+                    print(choice)
+                    score+=0
+                    scr_label.configure(text="The correct answer was: "+question_answer[qnum][5])
+                    self.quiz_instance.config(text="Confirm")
+                    self.question_setup()
+
+
+class End:
+    def __init__(self):
+        background="black"
+
+        self.end_box=Toplevel(root)
+        self.end_box.title
+
+randomiser()
+if __name__ == "__main__":
+    root = Tk()
+    root.title("Quiz on Global Pollution")
+    quiz_instance = MainScreen(root)
+    root.mainloop()
 
 root = Tk()
 root.title("Quiz on Global Pollution")
