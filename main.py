@@ -38,11 +38,29 @@ question_answer = {
         'gases that create a greenhouse effect by trapping the heat inside the earths atmosphere',
         3
     ],
-    6: [],
-    7: [],
-    8: [],
-    9: [],
-    10: [],
+    6: [
+        "Which one of these industry creates the most pollution globally?",
+        'transport industry', 
+        'construction industry', 
+        'tech industry',
+        'fuel industry', 'agriculture', 'fuel industry', 4
+    ],
+    7: [
+        "How many people die everyday due to unclean drinking water caused by pollution",
+        '5,000 people', 
+        '20,000 people', 
+        '100,000 people', 
+        '1,000,000 people',
+        '2,500 people', 
+        '5,000 people', 
+        1],
+    8:[
+        "unknown", 'hello1', 'hello2', 'hello3', 'hello4', 'hello5', 'hello1', 1],
+    9:[
+        "unknown", 'hello1', 'hello2', 'hello3', 'hello4', 'hello5', 'hello1', 1],
+    10:[
+        "unknown", 
+     'hello1', 'hello2', 'hello3', 'hello4', 'hello5', 'hello1', 1]
 }
 
 
@@ -199,15 +217,24 @@ class Quiz:
                                fg="black")
         self.rb5.grid(row=6, sticky=W)
 
-        self.quiz_instance = Button(self.quiz_frame,
-                                    text="Confirm",
-                                    font=("Helvetica", "13", "bold"),
-                                    bg="cyan",
-                                    command=self.test_progress)
+        self.confirm_button = Button(self.quiz_frame,
+                                     text="Confirm",
+                                     font=("Helvetica", "13", "bold"),
+                                     bg="cyan",
+                                     command=self.test_progress)
 
-        self.quiz_instance.grid(row=7, padx=5, pady=5)
+        self.confirm_button.grid(row=7, padx=5, pady=5)
 
-        self.score_label=Label(self.quiz_frame, text="SCORE", font=("Tw Cen MT","16"), bg=background_color)
+        self.end_quiz = Button(self.quiz_frame,
+                               text="End Quiz",
+                               font=("Helvetica", "13", "bold"),
+                               bg="cyan",
+                               command=self.end_screen)
+
+        self.score_label = Label(self.quiz_frame,
+                                 text="SCORE",
+                                 font=("Tw Cen MT", "16"),
+                                 bg=background_color)
         self.score_label.grid(row=8, padx=10, pady=1)
 
     def question_setup(self):
@@ -222,42 +249,111 @@ class Quiz:
 
     def test_progress(self):
         global score
-        scr_label=self.score_label
-        choice=self.var1.get()
-        if len(asked)>9:
-            if choice ==question_answer[qnum][6]:
-                score+=1
+        scr_label = self.score_label
+        choice = self.var1.get()
+        if len(asked) > 9:
+            if choice == question_answer[qnum][6]:
+                score += 1
                 scr_label.config(text=score)
-                self.quiz_instance.config(text="Confirm")
+                self.confirm_button.config(text="Confirm")
 
             else:
-                score+=0
-                scr_label.config(text="The correct answer was: " + question_answer[qnum][5] )
-                self.quiz_instance.config(text="Confirm")
+                score += 0
+                scr_label.config(text="The correct answer was: " +
+                                 question_answer[qnum][5])
+                self.confirm_button.config(text="Confirm")
 
         else:
-            if choice ==0:
-                self.quiz_instance.config(text="Try Again, You didn't select an option then submit again")
-                choice=self.var1.get()
+            if choice == 0:
+                self.confirm_button.config(
+                    text=
+                    "Try Again, You didn't select an option then submit again")
+                choice = self.var1.get()
             else:
                 if choice == question_answer[qnum][6]:
-                    score+=1
+                    score += 1
                     scr_label.config(text=score)
-                    self.quiz_instance.config(text="Confirm")
+                    self.confirm_button.config(text="Confirm")
                 else:
                     print(choice)
-                    score+=0
-                    scr_label.configure(text="The correct answer was: "+question_answer[qnum][5])
-                    self.quiz_instance.config(text="Confirm")
+                    score += 0
+                    scr_label.configure(text="The correct answer was: " +
+                                        question_answer[qnum][5])
+                    self.confirm_button.config(text="Confirm")
                     self.question_setup()
+
+    def end_screen(self):
+        root.withdraw()
+        open_endscreen = End()
+        End(root)
 
 
 class End:
     def __init__(self):
-        background="black"
+        background = "black"
 
-        self.end_box=Toplevel(root)
-        self.end_box.title
+        self.end_box = Toplevel(root)
+        self.end_box.title("End Box")
+
+        self.end_frame = Frame(self.end_box,
+                               width=1000,
+                               height=1000,
+                               bg=background)
+
+        end_heading = Label(self.end_frame,
+                            text='Well Done',
+                            font=('Tw Cent Mt', 22, 'bold'),
+                            bg=background,
+                            pady=15)
+        end_heading.grid(row=0)
+
+        exit_button = Button(self.end_frame,
+                             text='Exit',
+                             width=10,
+                             bg='cyan',
+                             font=('Tw Cent Mt', 12, 'bold'),
+                             command=self.close_end)
+        exit_button.grid(row=4, pady=20)
+
+    def endScreen(self):
+        root.withdraw()
+        name = names[0]
+        file = open("leaderboard.txt", "a")
+        file.write(str(score))
+        file.write(" - ")
+        file.write(name + "\n")
+        file.close()
+
+        inputFile = open("leaderBoard.txt", 'r')
+        lineList = inputFile.readlines()
+        lineList.sort()
+        top = []
+        top10 = (lineList[-10:])
+        for line in top10:
+            point = line.split(" - ")
+            top.append(int(point[0]), point[1])
+        file.close()
+        top.sort()
+        top.reverse()
+        return_string = ""
+        for i in range(len(top)):
+            return_string += "{} - {}\n".format(top[i][0], top[i][1])
+        print(return_string)
+        open_endscrn = End()
+        open_endscrn.listLabel.config(text=return_string)
+        self.listLabel = Label(self.end_frame,
+                               text="1st Place Available",
+                               font=('Tw Cent MT', 18),
+                               width=40,
+                               bg=background,
+                               padx=10,
+                               pady=10)
+        self.listLabel.grid(column=0, row=2)
+
+    def close_end(self):
+        self.end_box.destroy()
+        root.withdraw()
+
 
 randomiser()
 if __name__ == "__main__":
