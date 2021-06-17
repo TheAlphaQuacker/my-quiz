@@ -107,21 +107,18 @@ class MainScreen:
                                    command=self.name_collection)
         self.start_button.grid(row=3, padx=20, pady=20)
 
-        #Leaderboard
-        self.Leaderboard_Button = Button(self.quiz_frame,
-                                         text="LeaderBoard",
-                                         font=("Pacifico", "13", "bold"),
-                                         fg='black',
-                                         bg="cyan")
-        self.Leaderboard_Button.grid(row=4, padx=20, pady=20)
-
-        #quit button
         self.Quit_Button = Button(self.quiz_frame,
                                   text="Quit",
                                   font=("Pacifico", "13", "bold"),
                                   fg='black',
-                                  bg="cyan")
+                                  bg="cyan",
+                                  command=self.end_screen)
         self.Quit_Button.grid(row=5, padx=20, pady=20)
+
+
+    def end_screen(self):
+        root.withdraw()
+        open_endscreen = End(root)
 
     def name_collection(self):
         name = self.entry_box.get()
@@ -230,11 +227,13 @@ class Quiz:
                                font=("Helvetica", "13", "bold"),
                                bg="cyan",
                                command=self.end_screen)
+        self.end_quiz.grid(row=9, padx=10, pady=10)
 
         self.score_label = Label(self.quiz_frame,
                                  text="SCORE",
                                  font=("Tw Cen MT", "16"),
-                                 bg=background_color)
+                                 bg=background_color,
+                                 fg="cyan")
         self.score_label.grid(row=8, padx=10, pady=1)
 
     def question_setup(self):
@@ -260,7 +259,7 @@ class Quiz:
             else:
                 score += 0
                 scr_label.config(text="The correct answer was: " +
-                                 question_answer[qnum][5])
+                                 question_answer[qnum][6])
                 self.confirm_button.config(text="Confirm")
 
         else:
@@ -278,19 +277,20 @@ class Quiz:
                     print(choice)
                     score += 0
                     scr_label.configure(text="The correct answer was: " +
-                                        question_answer[qnum][5])
+                                        question_answer[qnum][6])
                     self.confirm_button.config(text="Confirm")
                     self.question_setup()
 
     def end_screen(self):
         root.withdraw()
-        open_endscreen = End()
-        End(root)
+        open_endscreen = End(root)
+
 
 
 class End:
-    def __init__(self):
+    def __init__(self,master):
         background = "black"
+
 
         self.end_box = Toplevel(root)
         self.end_box.title("End Box")
@@ -298,57 +298,24 @@ class End:
         self.end_frame = Frame(self.end_box,
                                width=1000,
                                height=1000,
-                               bg=background)
+                               bg=background,
+                               )
+        self.end_frame.grid()
 
-        end_heading = Label(self.end_frame,
+        self.end_heading = Label(self.end_frame,
                             text='Well Done',
                             font=('Tw Cent Mt', 22, 'bold'),
                             bg=background,
                             pady=15)
-        end_heading.grid(row=0)
+        self.end_heading.grid(row=0)
 
-        exit_button = Button(self.end_frame,
+        self.exit_button = Button(self.end_frame,
                              text='Exit',
                              width=10,
                              bg='cyan',
                              font=('Tw Cent Mt', 12, 'bold'),
                              command=self.close_end)
-        exit_button.grid(row=4, pady=20)
-
-    def endScreen(self):
-        root.withdraw()
-        name = names[0]
-        file = open("leaderboard.txt", "a")
-        file.write(str(score))
-        file.write(" - ")
-        file.write(name + "\n")
-        file.close()
-
-        inputFile = open("leaderBoard.txt", 'r')
-        lineList = inputFile.readlines()
-        lineList.sort()
-        top = []
-        top10 = (lineList[-10:])
-        for line in top10:
-            point = line.split(" - ")
-            top.append(int(point[0]), point[1])
-        file.close()
-        top.sort()
-        top.reverse()
-        return_string = ""
-        for i in range(len(top)):
-            return_string += "{} - {}\n".format(top[i][0], top[i][1])
-        print(return_string)
-        open_endscrn = End()
-        open_endscrn.listLabel.config(text=return_string)
-        self.listLabel = Label(self.end_frame,
-                               text="1st Place Available",
-                               font=('Tw Cent MT', 18),
-                               width=40,
-                               bg=background,
-                               padx=10,
-                               pady=10)
-        self.listLabel.grid(column=0, row=2)
+        self.exit_button.grid(row=4, pady=20)
 
     def close_end(self):
         self.end_box.destroy()
