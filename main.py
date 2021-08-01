@@ -24,17 +24,28 @@ question_answer = {
     ],
     3: [
         "Which country creates the most pollution?", 'Brazil', 'China',
-        'United States of America', 'Germany', 'Russia', 'China', 2
+        'United States of America', 
+        'Germany', 
+        'Russia', 
+        'China', 
+        2
     ],
     4: [
-        "Which country creates the least pollution?", 'New Zealand', 'Finland',
-        'France', 'Sweden', 'Australia', 'Sweden', 4
+        "Which country creates the least pollution?", 
+        'New Zealand', 
+        'Finland',
+        'France', 
+        'Sweden', 
+        'Australia', 
+        'Sweden', 
+        4
     ],
     5: [
         "What are greenhouse gases?", 'gases that make the earth colder',
         'gases that are poisnous',
         'gases that create a greenhouse effect by trapping the heat inside the earths atmosphere',
-        'gases inside a greenhouse', 'gases that make your house green',
+        'gases inside a greenhouse', 
+        'gases that make your house green',
         'gases that create a greenhouse effect by trapping the heat inside the earths atmosphere',
         3
     ],
@@ -43,7 +54,9 @@ question_answer = {
         'transport industry', 
         'construction industry', 
         'tech industry',
-        'fuel industry', 'agriculture', 'fuel industry', 4
+        'fuel industry', 
+        'agriculture', 
+        'fuel industry', 4
     ],
     7: [
         "How many people die everyday due to unclean drinking water caused by pollution",
@@ -55,12 +68,32 @@ question_answer = {
         '5,000 people', 
         1],
     8:[
-        "unknown", 'hello1', 'hello2', 'hello3', 'hello4', 'hello5', 'hello1', 1],
+        "What type of energy source causes the most pollution?", 
+        'hydro power', 
+        'Oil', 
+        'solar', 
+        'wind', 
+        'natural gas', 
+        'oil', 
+        2],
     9:[
-        "unknown", 'hello1', 'hello2', 'hello3', 'hello4', 'hello5', 'hello1', 1],
+        "What causes the most pollution in the seas?", 
+        'Plastic', 
+        'Oil spills', 
+        'Ship wrecks', 
+        'dead sea animals', 
+        'water', 
+        'Plastic', 
+        1],
     10:[
-        "unknown", 
-     'hello1', 'hello2', 'hello3', 'hello4', 'hello5', 'hello1', 1]
+        "What kind of pollution does nuclear reactors create", 
+        'air pollution', 
+        'noise pollution', 
+        'radioactive pollution', 
+        'water pollution', 
+        'space pollution', 
+        'radioactive pollution', 
+        3]
 }
 
 
@@ -79,13 +112,13 @@ class MainScreen:
         master.title("Quiz on Global Pollution")
 
         background_color = "black"
-
+        #main screen window 
         self.quiz_frame = Frame(master,
                                 bg=background_color,
                                 padx=100,
                                 pady=100)
         self.quiz_frame.grid()
-
+        #name of quiz
         self.heading_label = Label(self.quiz_frame,
                                    text="Global Pollution",
                                    font=("Pacifico", "20"),
@@ -94,7 +127,7 @@ class MainScreen:
                                    padx=20,
                                    pady=20)
         self.heading_label.grid(row=1, padx=20, pady=20)
-
+        #adds the place to enter name
         self.entry_box = Entry(self.quiz_frame)
         self.entry_box.grid(row=2, padx=20, pady=20)
 
@@ -106,7 +139,7 @@ class MainScreen:
                                    bg="cyan",
                                    command=self.name_collection)
         self.start_button.grid(row=3, padx=20, pady=20)
-
+        #quit button
         self.Quit_Button = Button(self.quiz_frame,
                                   text="Quit",
                                   font=("Pacifico", "13", "bold"),
@@ -133,22 +166,22 @@ class Quiz:
         master.title("Quiz on Global Pollution")
 
         background_color = "black"
-
+        #creates Quiz window
         self.quiz_frame = Frame(master,
                                 bg=background_color,
                                 padx=100,
                                 pady=100)
         self.quiz_frame.grid()
-
+        #adds the question
         self.question_label = Label(self.quiz_frame,
                                     text=question_answer[qnum][0],
                                     font=("Pacifico", "16"),
                                     fg='black',
                                     bg="cyan")
         self.question_label.grid(row=1, padx=20, pady=20)
-
+        #add variable 1
         self.var1 = IntVar()
-
+        #radiobutton
         self.rb1 = Radiobutton(self.quiz_frame,
                                text=question_answer[qnum][1],
                                font=("Helvetica", "12"),
@@ -161,7 +194,7 @@ class Quiz:
                                background="cyan",
                                fg="black")
         self.rb1.grid(row=2, sticky=W)
-
+        #adds radiobuttun 2
         self.rb2 = Radiobutton(self.quiz_frame,
                                text=question_answer[qnum][2],
                                font=("Helvetica", "12"),
@@ -174,7 +207,7 @@ class Quiz:
                                background="cyan",
                                fg="black")
         self.rb2.grid(row=3, sticky=W)
-
+        #adds radio button 3
         self.rb3 = Radiobutton(self.quiz_frame,
                                text=question_answer[qnum][3],
                                font=("Helvetica", "12"),
@@ -187,7 +220,7 @@ class Quiz:
                                background="cyan",
                                fg="black")
         self.rb3.grid(row=4, sticky=W)
-
+        #adds radiobutton 4
         self.rb4 = Radiobutton(self.quiz_frame,
                                text=question_answer[qnum][4],
                                font=("Helvetica", "12"),
@@ -200,7 +233,7 @@ class Quiz:
                                background="cyan",
                                fg="black")
         self.rb4.grid(row=5, sticky=W)
-
+        #adds radiobutton 5
         self.rb5 = Radiobutton(self.quiz_frame,
                                text=question_answer[qnum][5],
                                font=("Helvetica", "12"),
@@ -213,7 +246,7 @@ class Quiz:
                                background="cyan",
                                fg="black")
         self.rb5.grid(row=6, sticky=W)
-
+        #adds confirm button
         self.confirm_button = Button(self.quiz_frame,
                                      text="Confirm",
                                      font=("Helvetica", "13", "bold"),
@@ -221,21 +254,21 @@ class Quiz:
                                      command=self.test_progress)
 
         self.confirm_button.grid(row=7, padx=5, pady=5)
-
+        #Adds end quiz button
         self.end_quiz = Button(self.quiz_frame,
                                text="End Quiz",
                                font=("Helvetica", "13", "bold"),
                                bg="cyan",
                                command=self.end_screen)
         self.end_quiz.grid(row=9, padx=10, pady=10)
-
+        #adds score label which tells you correct answer
         self.score_label = Label(self.quiz_frame,
                                  text="SCORE",
                                  font=("Tw Cen MT", "16"),
                                  bg=background_color,
                                  fg="cyan")
         self.score_label.grid(row=8, padx=10, pady=1)
-
+    #sets up the radio buttons
     def question_setup(self):
         randomiser()
         self.var1.set(0)
@@ -245,7 +278,7 @@ class Quiz:
         self.rb3.config(text=question_answer[qnum][3])
         self.rb4.config(text=question_answer[qnum][4])
         self.rb5.config(text=question_answer[qnum][5])
-
+    #sets up score label
     def test_progress(self):
         global score
         scr_label = self.score_label
@@ -280,7 +313,7 @@ class Quiz:
                                         question_answer[qnum][6])
                     self.confirm_button.config(text="Confirm")
                     self.question_setup()
-
+    #adds end method
     def end_screen(self):
         root.withdraw()
         open_endscreen = End(root)
